@@ -40,8 +40,9 @@ namespace TestProcessCaller
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem OpenFileToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
-        private TextBox textBox1;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel fileStripStatusLabel1;
         
         /// <summary>
         /// Required designer variable.
@@ -58,7 +59,7 @@ namespace TestProcessCaller
             //
             InitializeComponent();
 
-            textBox1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
+            fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
         }
 
         /// <summary>
@@ -90,10 +91,12 @@ namespace TestProcessCaller
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.fileStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
@@ -163,27 +166,32 @@ namespace TestProcessCaller
             this.OpenFileToolStripMenuItem.Text = "Open File";
             this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.DefaultExt = "bat";
-            this.openFileDialog1.Filter = "Bat files (*.bat)|*.bat|All files (*.*)|*.*";
-            this.openFileDialog1.InitialDirectory = "C:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox1.Location = new System.Drawing.Point(12, 300);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(318, 20);
-            this.textBox1.TabIndex = 4;
-            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Bat files (*.bat)|*.bat|All files (*.*)|*.*";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 310);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(504, 22);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // fileStripStatusLabel1
+            // 
+            this.fileStripStatusLabel1.Name = "fileStripStatusLabel1";
+            this.fileStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // AceNewzForm
             // 
@@ -192,7 +200,7 @@ namespace TestProcessCaller
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(504, 332);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.RichTextBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -200,9 +208,12 @@ namespace TestProcessCaller
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AceNewzForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AceNewz Launcher";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,25 +226,25 @@ namespace TestProcessCaller
 
         private void btnOk_Click(object sender, System.EventArgs e)
         {
-            
+
             this.Cursor = Cursors.AppStarting;
             this.btnOk.Enabled = false;
-            Environment.CurrentDirectory = @"D:/xampp/htdocs/nnplus/misc/update_scripts/win_scripts/";
+            string directoryName = Path.GetDirectoryName(fileStripStatusLabel1.Text);
+            // Environment.CurrentDirectory = @"D:/xampp/htdocs/nnplus/misc/update_scripts/win_scripts/";
+            Environment.CurrentDirectory = directoryName;
             processCaller = new ProcessCaller(this);
-            //processCaller.FileName = @"..\..\hello.bat";
-            processCaller.FileName = textBox1.Text;
+            // processCaller.FileName = @"..\..\hello.bat";
+            processCaller.FileName = fileStripStatusLabel1.Text;
             processCaller.Arguments = "";
             processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
             processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
             processCaller.Completed += new EventHandler(processCompletedOrCanceled);
             processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
             // processCaller.Failed += no event handler for this one, yet.
-            
             this.RichTextBox1.Text = "Started Process.  Please stand by.." + Environment.NewLine;
-
             // the following function starts a process and returns immediately,
             // thus allowing the form to stay responsive.
-            processCaller.Start();  
+            processCaller.Start();   
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e)
@@ -280,23 +291,23 @@ namespace TestProcessCaller
         {
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //remove old file file location
-            config.AppSettings.Settings.Remove("FileLocation");
-            //save the old location gone
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                //remove old file file location
+                config.AppSettings.Settings.Remove("FileLocation");
+                //save the old location gone
                 config.Save(ConfigurationSaveMode.Modified);
-            // Force a reload of a changed section.
-            ConfigurationManager.RefreshSection("appSettings");
-            
+                // Force a reload of a changed section.
+                ConfigurationManager.RefreshSection("appSettings");
+
                 // Add an Application Setting.
-            config.AppSettings.Settings.Add("FileLocation", openFileDialog1.FileName);
-            
+                config.AppSettings.Settings.Add("FileLocation", openFileDialog1.FileName);
+
                 // Save the changes in App.config file.
-            config.Save(ConfigurationSaveMode.Modified);
+                config.Save(ConfigurationSaveMode.Modified);
 
                 // Force a reload of a changed section.
-            ConfigurationManager.RefreshSection("appSettings");
-            textBox1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
+                ConfigurationManager.RefreshSection("appSettings");
+                fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
             }
                 
                 
