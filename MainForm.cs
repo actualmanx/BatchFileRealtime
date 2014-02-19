@@ -131,17 +131,18 @@ namespace TestProcessCaller
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RichTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.RichTextBox1.HideSelection = false;
-            this.RichTextBox1.Location = new System.Drawing.Point(12, 36);
+            this.RichTextBox1.Location = new System.Drawing.Point(12, 27);
             this.RichTextBox1.Name = "RichTextBox1";
             this.RichTextBox1.ReadOnly = true;
             this.RichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.RichTextBox1.Size = new System.Drawing.Size(480, 228);
+            this.RichTextBox1.Size = new System.Drawing.Size(480, 237);
             this.RichTextBox1.TabIndex = 0;
             this.RichTextBox1.TabStop = false;
             this.RichTextBox1.Text = "";
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -161,6 +162,7 @@ namespace TestProcessCaller
             // 
             // OpenFileToolStripMenuItem
             // 
+            this.OpenFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("OpenFileToolStripMenuItem.Image")));
             this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
             this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.OpenFileToolStripMenuItem.Text = "Open File";
@@ -179,7 +181,7 @@ namespace TestProcessCaller
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(88)))), ((int)(((byte)(88)))));
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 310);
@@ -190,6 +192,7 @@ namespace TestProcessCaller
             // 
             // fileStripStatusLabel1
             // 
+            this.fileStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.fileStripStatusLabel1.Name = "fileStripStatusLabel1";
             this.fileStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
