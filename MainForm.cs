@@ -229,25 +229,40 @@ namespace TestProcessCaller
 
         private void btnOk_Click(object sender, System.EventArgs e)
         {
+            try
+            {
+                this.Cursor = Cursors.AppStarting;
+                this.btnOk.Enabled = false;
+                string directoryName = Path.GetDirectoryName(fileStripStatusLabel1.Text);
+                // Environment.CurrentDirectory = @"D:/xampp/htdocs/nnplus/misc/update_scripts/win_scripts/";
+                Environment.CurrentDirectory = directoryName;
+                processCaller = new ProcessCaller(this) { /* processCaller.FileName = @"..\..\hello.bat";*/FileName = fileStripStatusLabel1.Text, Arguments = "" };
+                processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
+                processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
+                processCaller.Completed += new EventHandler(processCompletedOrCanceled);
+                processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
+                // processCaller.Failed += no event handler for this one, yet.
+                this.RichTextBox1.Text = "Started Process.  Please stand by.." + Environment.NewLine;
+                // the following function starts a process and returns immediately,
+                // thus allowing the form to stay responsive.
+                processCaller.Start();
+            }
 
-            this.Cursor = Cursors.AppStarting;
-            this.btnOk.Enabled = false;
-            string directoryName = Path.GetDirectoryName(fileStripStatusLabel1.Text);
-            // Environment.CurrentDirectory = @"D:/xampp/htdocs/nnplus/misc/update_scripts/win_scripts/";
-            Environment.CurrentDirectory = directoryName;
-            processCaller = new ProcessCaller(this);
-            // processCaller.FileName = @"..\..\hello.bat";
-            processCaller.FileName = fileStripStatusLabel1.Text;
-            processCaller.Arguments = "";
-            processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
-            processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
-            processCaller.Completed += new EventHandler(processCompletedOrCanceled);
-            processCaller.Cancelled += new EventHandler(processCompletedOrCanceled);
-            // processCaller.Failed += no event handler for this one, yet.
-            this.RichTextBox1.Text = "Started Process.  Please stand by.." + Environment.NewLine;
-            // the following function starts a process and returns immediately,
-            // thus allowing the form to stay responsive.
-            processCaller.Start();   
+            catch (DirectoryNotFoundException)
+            {
+                this.RichTextBox1.Text = "Error: The directory specified could not be found.";
+
+            }
+            catch (IOException)
+            {
+                this.RichTextBox1.Text = "Error: A file in the directory could not be accessed.";
+
+            }
+            catch (ArgumentNullException)
+            {
+                this.RichTextBox1.Text = "Error: The argument cannot be null or empty.";
+            }
+
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e)
