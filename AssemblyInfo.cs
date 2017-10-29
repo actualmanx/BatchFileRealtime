@@ -9,9 +9,9 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("AceNewz Launcher")]
 [assembly: AssemblyDescription("Launch a runme.bat and show the output on the form")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ACID")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("ACID")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 

@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AceNewz Launcher</name>
+    </assembly>
+    <members>
+        <member name="T:TestProcessCaller.AlreadyRunningException">
+            <summary>
+            Exception thrown by AsyncUtils.AsyncOperation.Start when an
+            operation is already in progress.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AlreadyRunningException.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TestProcessCaller.AsyncOperation">
+            <summary>
+            This base class is designed to be used by lengthy operations that wish to
+            support cancellation.  It also allows those operations to invoke delegates
+            on the UI Thread of a hosting control.
+            </summary>
+            <remarks>
+            This class is from the MSDN article:
+            http://msdn.microsoft.com/msdnmag/issues/03/02/Multithreading/default.aspx
+            (C) 2001-2002 I D Griffiths
+            Please see the article for a complete description of the intentions and
+            operation of this class.
+            </remarks>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.#ctor(System.ComponentModel.ISynchronizeInvoke)">
+            <summary>
+            Initialises an AsyncOperation with an association to the
+            supplied ISynchronizeInvoke.  All events raised from this
+            object will be delivered via this target.  (This might be a
+            Control object, so events would be delivered to that Control's
+            UI thread.)
+            </summary>
+            <param name="target">An object implementing the
+            ISynchronizeInvoke interface.  All events will be delivered
+            through this target, ensuring that they are delivered to the
+            correct thread.</param>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.Start">
+            <summary>
+            Launch the operation on a worker thread.  This method will
+            return immediately, and the operation will start asynchronously
+            on a worker thread.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.Cancel">
+            <summary>
+            Attempt to cancel the current operation.  This returns
+            immediately to the caller.  No guarantee is made as to
+            whether the operation will be successfully cancelled.  All
+            that can be known is that at some point, one of the
+            three events Completed, Cancelled, or Failed will be raised
+            at some point.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.CancelAndWait">
+            <summary>
+            Attempt to cancel the current operation and block until either
+            the cancellation succeeds or the operation completes.
+            </summary>
+            <returns>true if the operation was successfully cancelled
+            or it failed, false if it ran to completion.</returns>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.WaitUntilDone">
+            <summary>
+            Blocks until the operation has either run to completion, or has
+            been successfully cancelled, or has failed with an internal
+            exception.
+            </summary>
+            <returns>true if the operation completed, false if it was
+            cancelled before completion or failed with an internal
+            exception.</returns>
+        </member>
+        <member name="P:TestProcessCaller.AsyncOperation.IsDone">
+            <summary>
+            Returns false if the operation is still in progress, or true if
+            it has either completed successfully, been cancelled
+             successfully, or failed with an internal exception.
+            </summary>
+        </member>
+        <member name="E:TestProcessCaller.AsyncOperation.Completed">
+            <summary>
+            This event will be fired if the operation runs to completion
+            without being cancelled.  This event will be raised through the
+            ISynchronizeTarget supplied at construction time.  Note that
+            this event may still be received after a cancellation request
+            has been issued.  (This would happen if the operation completed
+            at about the same time that cancellation was requested.)  But
+            the event is not raised if the operation is cancelled
+            successfully.
+            </summary>
+        </member>
+        <member name="E:TestProcessCaller.AsyncOperation.Cancelled">
+            <summary>
+            This event will be fired when the operation is successfully
+            stoped through cancellation.  This event will be raised through
+            the ISynchronizeTarget supplied at construction time.
+            </summary>
+        </member>
+        <member name="E:TestProcessCaller.AsyncOperation.Failed">
+            <summary>
+            This event will be fired if the operation throws an exception.
+            This event will be raised through the ISynchronizeTarget
+            supplied at construction time.
+            </summary>
+        </member>
+        <member name="P:TestProcessCaller.AsyncOperation.Target">
+            <summary>
+            The ISynchronizeTarget supplied during construction - this can
+            be used by deriving classes which wish to add their own events.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.DoWork">
+            <summary>
+            To be overridden by the deriving class - this is where the work
+            will be done.  The base class calls this method on a worker
+            thread when the Start method is called.
+            </summary>
+        </member>
+        <member name="P:TestProcessCaller.AsyncOperation.CancelRequested">
+            <summary>
+            Flag indicating whether the request has been cancelled.  Long-
+            running operations should check this flag regularly if they can
+            and cancel their operations as soon as they notice that it has
+            been set.
+            </summary>
+        </member>
+        <member name="P:TestProcessCaller.AsyncOperation.HasCompleted">
+            <summary>
+            Flag indicating whether the request has run through to
+            completion.  This will be false if the request has been
+            successfully cancelled, or if it failed.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.AcknowledgeCancel">
+            <summary>
+            This is called by the operation when it wants to indicate that
+            it saw the cancellation request and honoured it.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.FailOperation(System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TestProcessCaller.AsyncOperation.FireAsync(System.Delegate,System.Object[])">
+            <summary>
+            Utility function for firing an event through the target.
+            It uses C#'s variable length parameter list support
+            to build the parameter list.
+            This functions presumes that the caller holds the object lock.
+            (This is because the event list is typically modified on the UI
+            thread, but events are usually raised on the worker thread.)
+            </summary>
+            <param name="dlg"></param>
+            <param name="pList"></param>
+        </member>
+        <member name="T:TestProcessCaller.DataReceivedHandler">
+            <summary>
+            Delegate used by the events StdOutReceived and
+            StdErrReceived...
+            </summary>
+        </member>
+        <member name="T:TestProcessCaller.DataReceivedEventArgs">
+            <summary>
+            Event Args for above delegate
+            </summary>
+        </member>
+        <member name="F:TestProcessCaller.DataReceivedEventArgs.Text">
+            <summary>
+            The text that was received
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.DataReceivedEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="text">The text that was received for this event to be triggered.</param>
+        </member>
+        <member name="T:TestProcessCaller.ProcessCaller">
+            <summary>
+            This class can launch a process (like a bat file, perl
+            script, etc) and return all of the StdOut and StdErr
+            to GUI app for display in textboxes, etc.
+            </summary>
+            <remarks>
+            This class (c) 2003 Michael Mayer
+            Use it as you like (public domain licensing).
+            Please post any bugs / fixes to the page where
+            you downloaded this code.
+            </remarks>
+        </member>
+        <member name="F:TestProcessCaller.ProcessCaller.FileName">
+            <summary>
+            The command to run (should be made into a property)
+            </summary>
+        </member>
+        <member name="F:TestProcessCaller.ProcessCaller.Arguments">
+            <summary>
+            The Arguments for the cmd (should be made into a property)
+            </summary>
+        </member>
+        <member name="F:TestProcessCaller.ProcessCaller.WorkingDirectory">
+            <summary>
+            The WorkingDirectory (should be made into a property)
+            </summary>
+        </member>
+        <member name="E:TestProcessCaller.ProcessCaller.StdOutReceived">
+            <summary>
+            Fired for every line of stdOut received.
+            </summary>
+        </member>
+        <member name="E:TestProcessCaller.ProcessCaller.StdErrReceived">
+            <summary>
+            Fired for every line of stdErr received.
+            </summary>
+        </member>
+        <member name="F:TestProcessCaller.ProcessCaller.SleepTime">
+            <summary>
+            Amount of time to sleep on threads while waiting
+            for the process to finish.
+            </summary>
+        </member>
+        <member name="F:TestProcessCaller.ProcessCaller.process">
+            <summary>
+            The process used to run your task
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.ProcessCaller.#ctor(System.ComponentModel.ISynchronizeInvoke)">
+            <summary>
+            Initialises a ProcessCaller with an association to the
+            supplied ISynchronizeInvoke.  All events raised from this
+            object will be delivered via this target.  (This might be a
+            Control object, so events would be delivered to that Control's
+            UI thread.)
+            </summary>
+            <param name="isi">An object implementing the
+            ISynchronizeInvoke interface.  All events will be delivered
+            through this target, ensuring that they are delivered to the
+            correct thread.</param>
+        </member>
+        <member name="M:TestProcessCaller.ProcessCaller.DoWork">
+            <summary>
+            Launch a process, but do not return until the process has exited.
+            That way we can kill the process if a cancel is requested.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.ProcessCaller.StartProcess">
+            <summary>
+            This method is generally called by DoWork()
+            which is called by the base classs Start()
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.ProcessCaller.ReadStdOut">
+            <summary>
+            Handles reading of stdout and firing an event for
+            every line read
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.ProcessCaller.ReadStdErr">
+            <summary>
+            Handles reading of stdErr
+            </summary>
+        </member>
+        <member name="T:TestProcessCaller.AceNewzForm">
+            <summary>
+            A simple form to launch a process using ProcessCaller
+            and display all StdOut and StdErr in a RichTextBox.
+            </summary>
+            <remarks>
+            Special thanks to Chad Christensen for suggestions
+            on using the RichTextBox.
+            Note there are a lot of issues with scrolling on a
+            RichTextBox, depending upon if the cursor (selection point) 
+            is in the RichTextBox or not, and if it is hidden or not.
+            I've disabled the RichTextBox tabstop so that the cursor isn't
+            automatically placed in the text box.
+            Now setting or unsetting:
+               richTextBox1.HideSelection
+            will affect if the textbox is always repositioned at the bottom
+              when new text is entered.
+            </remarks>
+        </member>
+        <member name="F:TestProcessCaller.AceNewzForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AceNewzForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AceNewzForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AceNewzForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:TestProcessCaller.AceNewzForm.writeStreamInfo(System.Object,TestProcessCaller.DataReceivedEventArgs)">
+            <summary>
+            Handles the events of StdErrReceived and StdOutReceived.
+            </summary>
+            <remarks>
+            If stderr were handled in a separate function, it could possibly
+            be displayed in red in the richText box, but that is beyond 
+            the scope of this demo.
+            </remarks>
+        </member>
+        <member name="T:AceNewz_launcher.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AceNewz_launcher.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AceNewz_launcher.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
