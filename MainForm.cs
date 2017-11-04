@@ -10,8 +10,9 @@ using System.Diagnostics;
 using System.Collections.Specialized;
 using System.Text;
 using System.Collections.Generic;
+using Utility.ModifyRegistry;
 
-namespace TestProcessCaller
+namespace Bat_launcher
 {
 	/// <summary>
 	/// A simple form to launch a process using ProcessCaller
@@ -58,10 +59,11 @@ namespace TestProcessCaller
             // Required for Windows Form Designer support
             //
             InitializeComponent();
-
-            fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
+            /* old way - reading from a config file now we use registry
+            fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"]; */
+            fileStripStatusLabel1.Text = myRegistry.Read("File Location");
         }
-
+        ModifyRegistry myRegistry = new ModifyRegistry();
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -211,8 +213,7 @@ namespace TestProcessCaller
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AceNewzForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AceNewz Launcher";
+            this.Text = "Bat Launcher";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -236,7 +237,7 @@ namespace TestProcessCaller
                 string directoryName = Path.GetDirectoryName(fileStripStatusLabel1.Text);
                 // Environment.CurrentDirectory = @"D:/xampp/htdocs/nnplus/misc/update_scripts/win_scripts/";
                 Environment.CurrentDirectory = directoryName;
-                processCaller = new ProcessCaller(this) { /* processCaller.FileName = @"..\..\hello.bat";*/FileName = fileStripStatusLabel1.Text, Arguments = "" };
+                processCaller = new ProcessCaller(this) { FileName = fileStripStatusLabel1.Text, Arguments = "" };
                 processCaller.StdErrReceived += new DataReceivedHandler(writeStreamInfo);
                 processCaller.StdOutReceived += new DataReceivedHandler(writeStreamInfo);
                 processCaller.Completed += new EventHandler(processCompletedOrCanceled);
@@ -309,6 +310,9 @@ namespace TestProcessCaller
         {
             if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
+                myRegistry.Write("File Location", openFileDialog1.FileName);
+                fileStripStatusLabel1.Text = myRegistry.Read("File Location");
+                /*      old way to save to config file
                 System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 //remove old file file location
                 config.AppSettings.Settings.Remove("FileLocation");
@@ -325,7 +329,7 @@ namespace TestProcessCaller
 
                 // Force a reload of a changed section.
                 ConfigurationManager.RefreshSection("appSettings");
-                fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];
+                fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"];*/
             }
                 
                 
@@ -333,7 +337,7 @@ namespace TestProcessCaller
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This tool can be used to open batch files and display the output in the screen.\nThe file selected will be kept for future use.\nSome of the code used in this program is from codeprojects Mike Mayer.\nhttp://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou ");
+            this.RichTextBox1.Text = "This tool can be used to open batch files and display the output in the screen.\nThe file selected will be kept for future use.\nSome of the code used in this program is from codeprojects.\nhttp://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou\nRead and Write to the Registry\nhttps://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C";
         }
         }
 

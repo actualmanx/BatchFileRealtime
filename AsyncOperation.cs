@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.ComponentModel;
 
-namespace TestProcessCaller
+namespace Bat_launcher
 {
     /// <summary>
     /// Exception thrown by AsyncUtils.AsyncOperation.Start when an

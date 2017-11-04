@@ -1,3 +1,4 @@
+using System.Resources;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -6,11 +7,11 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("AceNewz Launcher")]
-[assembly: AssemblyDescription("Launch a runme.bat and show the output on the form")]
+[assembly: AssemblyTitle("Bat Launcher")]
+[assembly: AssemblyDescription("Launch a Batch file and output is displayed")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ACID")]
-[assembly: AssemblyProduct("")]
+[assembly: AssemblyProduct("Bat Launcher")]
 [assembly: AssemblyCopyright("ACID")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
@@ -56,3 +57,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]
+[assembly: NeutralResourcesLanguage("en")]
+

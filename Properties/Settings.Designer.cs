@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AceNewz_launcher.Properties {
+namespace Bat_launcher.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

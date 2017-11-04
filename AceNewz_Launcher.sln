@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AceNewz_launcher", "AceNewz_launcher.csproj", "{4FCC961E-DBC2-4D4A-9D2E-A23B0B23D2B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bat_launcher", "Bat_launcher.csproj", "{4FCC961E-DBC2-4D4A-9D2E-A23B0B23D2B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,5 +17,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56229058-0904-4C9E-8EE1-318D14EA7DBF}
 	EndGlobalSection
 EndGlobal

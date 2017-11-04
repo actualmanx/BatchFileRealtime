@@ -7,25 +7,26 @@
     <ProjectGuid>{4FCC961E-DBC2-4D4A-9D2E-A23B0B23D2B3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>Bat Launcher.ico</ApplicationIcon>
     <AssemblyKeyContainerName />
-    <AssemblyName>AceNewz Launcher</AssemblyName>
+    <AssemblyName>Bat Launcher</AssemblyName>
     <AssemblyOriginatorKeyFile />
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AceNewz_launcher</RootNamespace>
-    <StartupObject>TestProcessCaller.AceNewzForm</StartupObject>
+    <RootNamespace>Bat_launcher</RootNamespace>
+    <StartupObject>Bat_launcher.AceNewzForm</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>0.0</OldToolsVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -38,7 +39,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -80,6 +80,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System">
@@ -94,6 +95,7 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
@@ -109,6 +111,7 @@
     <Compile Include="AsyncOperation.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModifyRegistry.cs" />
     <Compile Include="ProcessCaller.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -135,7 +138,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="favicon.ico" />
+    <Content Include="Bat Launcher.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

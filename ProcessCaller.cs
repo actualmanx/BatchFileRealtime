@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.ComponentModel;
 
-namespace TestProcessCaller
+namespace Bat_launcher
 {
     /// <summary>
     /// Delegate used by the events StdOutReceived and
