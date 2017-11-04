@@ -14,11 +14,11 @@ using Utility.ModifyRegistry;
 
 namespace Bat_launcher
 {
-	/// <summary>
-	/// A simple form to launch a process using ProcessCaller
-	/// and display all StdOut and StdErr in a RichTextBox.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// A simple form to launch a process using ProcessCaller
+    /// and display all StdOut and StdErr in a RichTextBox.
+    /// </summary>
+    /// <remarks>
     /// Special thanks to Chad Christensen for suggestions
     /// on using the RichTextBox.
     /// Note there are a lot of issues with scrolling on a
@@ -30,9 +30,9 @@ namespace Bat_launcher
     ///    richTextBox1.HideSelection
     /// will affect if the textbox is always repositioned at the bottom
     ///   when new text is entered.
-	/// </remarks>
-    public class AceNewzForm : System.Windows.Forms.Form
-    { 
+    /// </remarks>
+    public class BatLauncherForm : System.Windows.Forms.Form
+    {
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         // Note: richtext box can hold much longer text than a plain textbox.
@@ -44,16 +44,16 @@ namespace Bat_launcher
         private ToolStripMenuItem aboutToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel fileStripStatusLabel1;
-        
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-         
+
         /// <summary>
         /// Default constructor
         /// </summary>
-        public AceNewzForm()
+        public BatLauncherForm()
         {
             //
             // Required for Windows Form Designer support
@@ -62,31 +62,34 @@ namespace Bat_launcher
             /* old way - reading from a config file now we use registry
             fileStripStatusLabel1.Text = System.Configuration.ConfigurationManager.AppSettings["FileLocation"]; */
             fileStripStatusLabel1.Text = myRegistry.Read("File Location");
+            this.RichTextBox1.LinkClicked += new
+            System.Windows.Forms.LinkClickedEventHandler
+            (this.RichTextBox1_LinkClicked);
         }
         ModifyRegistry myRegistry = new ModifyRegistry();
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
-            if( disposing )
+            if (disposing)
             {
-                if(components != null)
+                if (components != null)
                 {
                     components.Dispose();
                 }
             }
-            base.Dispose( disposing );
+            base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AceNewzForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BatLauncherForm));
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -128,8 +131,8 @@ namespace Bat_launcher
             // 
             // RichTextBox1
             // 
-            this.RichTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.RichTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RichTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.RichTextBox1.HideSelection = false;
@@ -167,7 +170,7 @@ namespace Bat_launcher
             // 
             this.OpenFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("OpenFileToolStripMenuItem.Image")));
             this.OpenFileToolStripMenuItem.Name = "OpenFileToolStripMenuItem";
-            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.OpenFileToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.OpenFileToolStripMenuItem.Text = "Open File";
             this.OpenFileToolStripMenuItem.Click += new System.EventHandler(this.OpenFileToolStripMenuItem_Click);
             // 
@@ -175,7 +178,7 @@ namespace Bat_launcher
             // 
             this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -200,7 +203,7 @@ namespace Bat_launcher
             this.fileStripStatusLabel1.Name = "fileStripStatusLabel1";
             this.fileStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
-            // AceNewzForm
+            // BatLauncherForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -214,7 +217,7 @@ namespace Bat_launcher
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "AceNewzForm";
+            this.Name = "BatLauncherForm";
             this.Text = "Bat Launcher";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -263,7 +266,7 @@ namespace Bat_launcher
             }
             catch (ArgumentNullException)
             {
-                this.RichTextBox1.Text = "Error: The argument cannot be null or empty.";
+                this.RichTextBox1.Text = "Please Select a File.";
             }
 
         }
@@ -287,8 +290,9 @@ namespace Bat_launcher
         private void writeStreamInfo(object sender, DataReceivedEventArgs e)
         {
             this.RichTextBox1.AppendText(e.Text + Environment.NewLine);
-        }
-
+            
+        
+    }
         
         
         private void processCompletedOrCanceled(object sender, EventArgs e)
@@ -301,7 +305,7 @@ namespace Bat_launcher
         [STAThread]
         static void Main(string[] args)         
         {
-            Application.Run(new AceNewzForm());
+            Application.Run(new BatLauncherForm());
 
  
 
@@ -336,6 +340,15 @@ namespace Bat_launcher
                 
                 
             }
+        public System.Diagnostics.Process p = new System.Diagnostics.Process();
+
+        private void RichTextBox1_LinkClicked(object sender,
+        System.Windows.Forms.LinkClickedEventArgs e)
+        {
+            // Call Process.Start method to open a browser  
+            // with link text as URL.  
+            p = System.Diagnostics.Process.Start(e.LinkText);
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
