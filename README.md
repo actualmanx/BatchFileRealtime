@@ -9,7 +9,7 @@ uses registry to save location of the file, old style still in the program to sa
 html links are active in the textbox.
 
 Credits to<br>
-https://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C?msg=5451359#xx5451359xx
+https://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C
 &<br>
 https://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou
 
