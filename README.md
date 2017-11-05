@@ -8,9 +8,9 @@ very handy if you just like to open a batch file as windows auto closes them aft
 uses registry to save location of the file, old style still in the program to save and use config file.
 html links are active in the textbox.
 
-Credits to\n
+Credits to<br>
 https://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C?msg=5451359#xx5451359xx
-&\n
+&<br>
 https://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou
 
 Download and compile or just grab the exe release
