@@ -44,6 +44,7 @@ namespace Bat_launcher
         private ToolStripMenuItem aboutToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel fileStripStatusLabel1;
+        private Button clearScreen;
 
         /// <summary>
         /// Required designer variable.
@@ -100,6 +101,7 @@ namespace Bat_launcher
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.fileStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.clearScreen = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -107,32 +109,34 @@ namespace Bat_launcher
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnOk.FlatAppearance.BorderSize = 0;
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOk.Location = new System.Drawing.Point(417, 277);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 2;
+            this.btnOk.TabIndex = 1;
             this.btnOk.Text = "&Start";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancel.Location = new System.Drawing.Point(336, 277);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // RichTextBox1
             // 
-            this.RichTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.RichTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RichTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.RichTextBox1.HideSelection = false;
@@ -203,6 +207,19 @@ namespace Bat_launcher
             this.fileStripStatusLabel1.Name = "fileStripStatusLabel1";
             this.fileStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
+            // clearScreen
+            // 
+            this.clearScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.clearScreen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clearScreen.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.clearScreen.Location = new System.Drawing.Point(13, 277);
+            this.clearScreen.Name = "clearScreen";
+            this.clearScreen.Size = new System.Drawing.Size(77, 23);
+            this.clearScreen.TabIndex = 3;
+            this.clearScreen.Text = "&Wipe Log";
+            this.clearScreen.UseVisualStyleBackColor = false;
+            this.clearScreen.Click += new System.EventHandler(this.clearScreen_Click);
+            // 
             // BatLauncherForm
             // 
             this.AcceptButton = this.btnOk;
@@ -210,6 +227,7 @@ namespace Bat_launcher
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(504, 332);
+            this.Controls.Add(this.clearScreen);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.RichTextBox1);
             this.Controls.Add(this.btnCancel);
@@ -354,7 +372,12 @@ namespace Bat_launcher
         {
             this.RichTextBox1.Text = "This tool can be used to open batch files and display the output in the screen.\nThe file selected will be kept for future use.\nSome of the code used in this program is from codeprojects.\nhttp://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou\nRead and Write to the Registry\nhttps://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C";
         }
+
+        private void clearScreen_Click(object sender, EventArgs e)
+        {
+            RichTextBox1.Clear();
         }
+    }
 
     }
 
