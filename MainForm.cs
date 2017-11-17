@@ -240,6 +240,8 @@ namespace Bat_launcher
             this.statusStrip1.Size = new System.Drawing.Size(504, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
+            this.DragEnter += new DragEventHandler(Form_DragEnter);
+            this.DragDrop += new DragEventHandler(Form_DragDrop);
             // 
             // fileStripStatusLabel1
             // 
@@ -366,10 +368,6 @@ namespace Bat_launcher
         static void Main(string[] args)         
         {
             Application.Run(new BatLauncherForm());
-
- 
-
-            
         }
 
         private void OpenFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -412,13 +410,14 @@ namespace Bat_launcher
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.RichTextBox1.Text = "This tool can be used to open batch files and display the output in the screen.\nThe file selected will be kept for future use.\nSome of the code used in this program is from codeprojects.\nhttp://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou\nRead and Write to the Registry\nhttps://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C";
+            this.RichTextBox1.Text = "This tool can be used to open batch files and display the output in the screen.\nThe file selected will be kept for future use.\nSome of the code used in this program is from codeprojects.\n http://www.codeproject.com/Articles/4665/Launching-a-process-and-displaying-its-standard-ou\nRead and Write to the Registry\n https://www.codeproject.com/Articles/3389/Read-write-and-delete-from-registry-with-C\nMy Github Page https://github.com/actualmanx/BatchFileRealtime";
         }
 
         private void clearScreen_Click(object sender, EventArgs e)
         {
             RichTextBox1.Clear();
         }
+        
     }
 
     }
