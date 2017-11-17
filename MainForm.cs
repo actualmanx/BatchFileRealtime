@@ -319,16 +319,20 @@ namespace Bat_launcher
             catch (DirectoryNotFoundException)
             {
                 this.RichTextBox1.Text = "Error: The directory specified could not be found.";
-
+                this.btnOk.Enabled = true;
+                this.Cursor = Cursors.Arrow;
             }
             catch (IOException)
             {
                 this.RichTextBox1.Text = "Error: A file in the directory could not be accessed.";
-
+                this.btnOk.Enabled = true;
+                this.Cursor = Cursors.Arrow;
             }
             catch (ArgumentNullException)
             {
                 this.RichTextBox1.Text = "Please Select a File.";
+                this.btnOk.Enabled = true;
+                this.Cursor = Cursors.Arrow;
             }
 
         }
