@@ -66,6 +66,44 @@ namespace Bat_launcher
             this.RichTextBox1.LinkClicked += new
             System.Windows.Forms.LinkClickedEventHandler
             (this.RichTextBox1_LinkClicked);
+            // Enable drag and drop for this form
+            // (this can also be applied to any controls)
+            // AllowDrop = true;
+            // Add event handlers for the drag & drop functionality
+            this.DragEnter += new DragEventHandler(Form_DragEnter);
+            this.DragDrop += new DragEventHandler(Form_DragDrop);
+            if (String.IsNullOrEmpty(fileStripStatusLabel1.Text))
+            {
+                this.RichTextBox1.Text = "Please drag & drop a file or use the menu to add a file." + Environment.NewLine;
+            }
+        }
+
+
+        void Form_DragEnter(object sender, DragEventArgs e)
+        {
+            // Check if the Data format of the data can be accepted
+            // (we only accept file drops from Explorer, etc.)
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy; // Okay
+            else
+                e.Effect = DragDropEffects.None; // Unknown data, ignore it
+
+        }
+
+        // Occurs when the user releases the mouse over the drop target 
+        void Form_DragDrop(object sender, DragEventArgs e)
+        {
+            // clear the label
+            fileStripStatusLabel1.Text = String.Empty;
+            // Extract the data from the DataObject-Container into a string list
+            string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            // Do something with the data...
+
+            // For example add all files into a simple label control:
+            foreach (string File in FileList)
+                this.fileStripStatusLabel1.Text += File;
+            myRegistry.Write("File Location", this.fileStripStatusLabel1.Text);
         }
         ModifyRegistry myRegistry = new ModifyRegistry();
         /// <summary>
@@ -139,6 +177,7 @@ namespace Bat_launcher
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RichTextBox1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RichTextBox1.HideSelection = false;
             this.RichTextBox1.Location = new System.Drawing.Point(12, 27);
             this.RichTextBox1.Name = "RichTextBox1";
@@ -192,6 +231,7 @@ namespace Bat_launcher
             // 
             // statusStrip1
             // 
+            this.statusStrip1.AllowDrop = true;
             this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(88)))), ((int)(((byte)(88)))));
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileStripStatusLabel1});
@@ -223,6 +263,7 @@ namespace Bat_launcher
             // BatLauncherForm
             // 
             this.AcceptButton = this.btnOk;
+            this.AllowDrop = true;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CancelButton = this.btnCancel;
@@ -235,6 +276,7 @@ namespace Bat_launcher
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(280, 280);
             this.Name = "BatLauncherForm";
             this.Text = "Bat Launcher";
             this.menuStrip1.ResumeLayout(false);
