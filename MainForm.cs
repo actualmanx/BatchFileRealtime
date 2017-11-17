@@ -237,15 +237,15 @@ namespace Bat_launcher
             this.fileStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 310);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.statusStrip1.Size = new System.Drawing.Size(504, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
-            this.DragEnter += new DragEventHandler(Form_DragEnter);
-            this.DragDrop += new DragEventHandler(Form_DragDrop);
             // 
             // fileStripStatusLabel1
             // 
             this.fileStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.fileStripStatusLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fileStripStatusLabel1.Name = "fileStripStatusLabel1";
             this.fileStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
@@ -281,6 +281,8 @@ namespace Bat_launcher
             this.MinimumSize = new System.Drawing.Size(280, 280);
             this.Name = "BatLauncherForm";
             this.Text = "Bat Launcher";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form_DragEnter);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -333,6 +335,7 @@ namespace Bat_launcher
                 this.RichTextBox1.Text = "Please Select a File.";
                 this.btnOk.Enabled = true;
                 this.Cursor = Cursors.Arrow;
+
             }
 
         }
